@@ -35,6 +35,7 @@ $string['examid_help'] = 'The Laplace exam (e.g. ENEM) used to filter the mock e
 $string['examsunavailable'] = 'Could not load the list of exams from Laplace right now — try saving again shortly.';
 
 $string['gotolaplace'] = 'Take mock exam on Laplace';
+$string['createinlaplace'] = 'Create mock exam on Laplace';
 $string['stats_total'] = 'Assigned mock exams';
 $string['stats_corrected'] = 'Corrected mock exams';
 $string['stats_average'] = 'Average score';

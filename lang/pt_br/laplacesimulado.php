@@ -35,6 +35,7 @@ $string['examid_help'] = 'O exame da Laplace (ex.: ENEM) usado para filtrar os s
 $string['examsunavailable'] = 'Não foi possível carregar a lista de exames da Laplace agora — tente salvar novamente em instantes.';
 
 $string['gotolaplace'] = 'Fazer simulado na Laplace';
+$string['createinlaplace'] = 'Criar simulado na Laplace';
 $string['stats_total'] = 'Simulados atribuídos';
 $string['stats_corrected'] = 'Simulados corrigidos';
 $string['stats_average'] = 'Média das notas';

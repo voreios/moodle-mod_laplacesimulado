@@ -53,6 +53,26 @@ if ($moduleinstance->intro) {
     echo $OUTPUT->box(format_module_intro('laplacesimulado', $moduleinstance, $cm->id), 'generalbox mod_introbox');
 }
 
+// Quem gerencia atividades no curso monta o simulado direto na Laplace via
+// deep-link de SSO, em vez de ver o resumo de resultados (que é por aluno).
+if (has_capability('moodle/course:manageactivities', $context)) {
+    try {
+        $ssourl = (new \local_laplace\sso_service())->get_teacher_sso_url(
+            $USER->id,
+            $course->id,
+            'criar-um-simulado?model=ensino-medio'
+        );
+    } catch (\local_laplace\api\api_exception $e) {
+        echo $OUTPUT->notification(get_string('ssounavailable', 'mod_laplacesimulado', $e->getMessage()), 'error');
+        echo $OUTPUT->footer();
+        exit;
+    }
+
+    echo \local_laplace\output\activity_panel::render([], $ssourl, get_string('createinlaplace', 'mod_laplacesimulado'));
+    echo $OUTPUT->footer();
+    exit;
+}
+
 try {
     $syncservice = new \local_laplace\sync_service();
     $mapping = $syncservice->ensure_student_synced($USER->id, $course->id);
