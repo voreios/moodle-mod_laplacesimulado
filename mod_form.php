@@ -48,6 +48,10 @@ class mod_laplacesimulado_mod_form extends moodleform_mod {
 
         $mform->addElement('header', 'laplacesimuladoheader', get_string('pluginname', 'mod_laplacesimulado'));
 
+        if (has_capability('moodle/course:manageactivities', $this->context)) {
+            $mform->addElement('html', $this->render_teacher_link());
+        }
+
         $exams = $this->get_exam_options();
         $mform->addElement('select', 'examid', get_string('examid', 'mod_laplacesimulado'), $exams);
         $mform->addRule('examid', null, 'required', null, 'client');
@@ -78,5 +82,34 @@ class mod_laplacesimulado_mod_form extends moodleform_mod {
         }
 
         return $options;
+    }
+
+    /**
+     * Monta o link "Criar simulado na Laplace" pra quem gerencia atividades
+     * no curso, mostrado no topo desta seção — mesmo deep-link de SSO de
+     * professor usado na view.php da atividade.
+     *
+     * @return string HTML pronto para um elemento 'html' do mform.
+     */
+    private function render_teacher_link(): string {
+        global $USER;
+
+        try {
+            $ssourl = (new \local_laplace\sso_service())->get_teacher_sso_url(
+                $USER->id,
+                $this->course->id,
+                'criar-um-simulado?model=ensino-medio'
+            );
+        } catch (\local_laplace\api\api_exception $e) {
+            return \html_writer::div(
+                get_string('ssounavailable', 'mod_laplacesimulado', $e->getMessage()),
+                'alert alert-warning'
+            );
+        }
+
+        return \html_writer::div(
+            \html_writer::link($ssourl, get_string('createinlaplace', 'mod_laplacesimulado'), ['class' => 'btn btn-secondary', 'target' => '_blank']),
+            'local-laplace-teacher-link mb-3'
+        );
     }
 }
