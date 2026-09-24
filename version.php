@@ -30,13 +30,13 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'mod_laplacesimulado';
-$plugin->version   = 2026092300;
+$plugin->version   = 2026092400;
 // Moodle 5.2.1 (Build: 20260608), branch 502 — versão pinada em MOODLE_VERSION
 // no .env do buriti_ava. Ajuste se o core for atualizado para um branch maior.
 $plugin->requires  = 2026042001;
 $plugin->maturity  = MATURITY_ALPHA;
-$plugin->release   = '0.2.0';
+$plugin->release   = '0.3.0';
 $plugin->cron      = 0;
 $plugin->dependencies = [
-    'local_laplace' => 2026092300,
+    'local_laplace' => 2026092400,
 ];

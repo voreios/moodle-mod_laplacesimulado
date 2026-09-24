@@ -14,31 +14,40 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
- * Define the complete structure for backup, with file and id annotations.
+ * Upgrade steps for mod_laplacesimulado.
  *
  * @package    mod_laplacesimulado
  * @copyright  2026 Voreios <fabio@voreios.com.br>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class backup_laplacesimulado_activity_structure_step extends backup_activity_structure_step {
 
-    /**
-     * Defines the structure of the resulting xml file.
-     *
-     * @return backup_nested_element
-     */
-    protected function define_structure() {
-        $laplacesimulado = new backup_nested_element('laplacesimulado', ['id'], [
-            'name', 'intro', 'introformat', 'timecreated', 'timemodified',
-        ]);
+defined('MOODLE_INTERNAL') || die();
 
-        $laplacesimulado->set_source_table('laplacesimulado', ['id' => backup::VAR_ACTIVITYID]);
+/**
+ * Executa as etapas de upgrade do mod_laplacesimulado.
+ *
+ * @param int $oldversion
+ * @return bool
+ */
+function xmldb_laplacesimulado_upgrade($oldversion) {
+    global $DB;
 
-        $laplacesimulado->annotate_files('mod_laplacesimulado', 'intro', null);
+    $dbman = $DB->get_manager();
 
-        return $this->prepare_activity_structure($laplacesimulado);
+    if ($oldversion < 2026092400) {
+        // "examid" nunca teve uso real - o professor escolhe a banca/exame
+        // direto na plataforma da Laplace; o Moodle só precisa da
+        // pontuação do aluno, já obtida via essays_client.
+        $table = new xmldb_table('laplacesimulado');
+        $field = new xmldb_field('examid');
+
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->drop_field($table, $field);
+        }
+
+        upgrade_mod_savepoint(true, 2026092400, 'laplacesimulado');
     }
+
+    return true;
 }

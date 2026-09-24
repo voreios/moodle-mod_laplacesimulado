@@ -52,36 +52,9 @@ class mod_laplacesimulado_mod_form extends moodleform_mod {
             $mform->addElement('html', $this->render_teacher_link());
         }
 
-        $exams = $this->get_exam_options();
-        $mform->addElement('select', 'examid', get_string('examid', 'mod_laplacesimulado'), $exams);
-        $mform->addRule('examid', null, 'required', null, 'client');
-        $mform->addHelpButton('examid', 'examid', 'mod_laplacesimulado');
-
         $this->standard_coursemodule_elements();
 
         $this->add_action_buttons();
-    }
-
-    /**
-     * Busca os exames disponíveis na API de Essays para popular o select.
-     * Se a API estiver fora do ar, devolve uma lista vazia com uma opção
-     * de aviso em vez de deixar a tela do formulário quebrar.
-     *
-     * @return array
-     */
-    private function get_exam_options(): array {
-        try {
-            $exams = (new \local_laplace\api\essays_client())->list_exams();
-        } catch (\local_laplace\api\api_exception $e) {
-            return ['' => get_string('examsunavailable', 'mod_laplacesimulado')];
-        }
-
-        $options = ['' => get_string('choosedots')];
-        foreach ($exams as $exam) {
-            $options[$exam['id']] = $exam['name'];
-        }
-
-        return $options;
     }
 
     /**

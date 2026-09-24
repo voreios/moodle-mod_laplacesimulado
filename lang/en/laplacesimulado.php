@@ -30,9 +30,6 @@ $string['modulenameplural'] = 'Laplace mock exams';
 $string['modulename_help'] = 'Sends the student, via SSO, to take mock exams on the Laplace platform, showing a performance summary on the activity page itself.';
 
 $string['laplacesimuladoname'] = 'Activity name';
-$string['examid'] = 'Exam';
-$string['examid_help'] = 'The Laplace exam (e.g. ENEM) used to filter the mock exams and performance summary for this activity.';
-$string['examsunavailable'] = 'Could not load the list of exams from Laplace right now — try saving again shortly.';
 
 $string['gotolaplace'] = 'Take mock exam on Laplace';
 $string['createinlaplace'] = 'Create mock exam on Laplace';

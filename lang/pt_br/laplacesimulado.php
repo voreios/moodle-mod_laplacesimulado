@@ -30,9 +30,6 @@ $string['modulenameplural'] = 'Simulados Laplace';
 $string['modulename_help'] = 'Direciona o aluno, via SSO, para fazer simulados na plataforma Laplace, mostrando um resumo do desempenho na própria página da atividade.';
 
 $string['laplacesimuladoname'] = 'Nome da atividade';
-$string['examid'] = 'Exame';
-$string['examid_help'] = 'O exame da Laplace (ex.: ENEM) usado para filtrar os simulados e o resumo de desempenho desta atividade.';
-$string['examsunavailable'] = 'Não foi possível carregar a lista de exames da Laplace agora — tente salvar novamente em instantes.';
 
 $string['gotolaplace'] = 'Fazer simulado na Laplace';
 $string['createinlaplace'] = 'Criar simulado na Laplace';
