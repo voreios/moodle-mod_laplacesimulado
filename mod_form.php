@@ -70,7 +70,7 @@ class mod_laplacesimulado_mod_form extends moodleform_mod {
         try {
             $ssourl = (new \local_laplace\sso_service())->get_teacher_sso_url(
                 $USER->id,
-                $this->course->id,
+                $this->_course->id,
                 'criar-um-simulado?model=ensino-medio'
             );
         } catch (\local_laplace\api\api_exception $e) {
